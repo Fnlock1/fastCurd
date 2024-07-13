@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\{{name}};
+use Illuminate\Http\Request;
+
+class {{name}}Controller extends Controller
+{
+    public function index()
+    {
+        $items = {{name}}::all();
+        return response()->json($items);
+    }
+
+    public function store(Request $request)
+    {
+        $item = {{name}}::create($request->all());
+        return response()->json($item, 201);
+    }
+
+    public function show($id)
+    {
+        $item = {{name}}::find($id);
+        if (!$item) {
+            return response()->json(['message' => 'Not Found'], 404);
+        }
+        return response()->json($item);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $item = {{name}}::find($id);
+        if (!$item) {
+            return response()->json(['message' => 'Not Found'], 404);
+        }
+        $item->update($request->all());
+        return response()->json($item);
+    }
+
+    public function destroy($id)
+    {
+        $item = {{name}}::find($id);
+        if (!$item) {
+            return response()->json(['message' => 'Not Found'], 404);
+        }
+        $item->delete();
+        return response()->json(['message' => 'Deleted']);
+    }
+}
